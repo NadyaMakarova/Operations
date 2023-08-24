@@ -1,0 +1,137 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Operations.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Operations.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Operations">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<ScrollViewer>
+		<StackPanel Orientation="Vertical"  Spacing="10" HorizontalAlignment="Stretch">
+			<DockPanel HorizontalAlignment="Center">
+				<TextBlock Text="Задать различное количество типов операций r:"
+						   HorizontalAlignment="Left"
+						   FontSize="20"
+						   VerticalAlignment="Center">
+				</TextBlock>
+				<TextBox Text="{Binding R}" MaxHeight="5" IsEnabled="True"></TextBox>
+			</DockPanel>
+			<TreeView Name="tree" Items="{Binding TypeOperations}" HorizontalAlignment="Center">
+				<TreeView.DataTemplates>
+					<DataTemplate>
+						<!--<ScrollViewer>-->
+						<StackPanel Spacing="10" Orientation="Horizontal">
+							<TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+							<StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+								<TextBlock Text="Ввести T:" VerticalAlignment="Center"></TextBlock>
+								<TextBox Text="{Binding T}" MaxHeight="5"></TextBox>
+							</StackPanel>
+							<StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+								<TextBlock Text="Ввести N:" VerticalAlignment="Center"></TextBlock>
+								<TextBox Text="{Binding N}" MaxHeight="5"></TextBox>
+							</StackPanel>
+							<StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+								<TextBlock Text="Ввести k:" VerticalAlignment="Center"></TextBlock>
+								<TextBox Text="{Binding k}" MaxHeight="5"></TextBox>
+							</StackPanel>
+							<StackPanel Name="stackPanel"  Orientation="Horizontal" HorizontalAlignment="Right">
+								<TextBlock Text="Ввести λ:" VerticalAlignment="Center"></TextBlock>
+								<ComboBox SelectedIndex="{Binding SelectedIndex}" Name="comboBox" SelectionChanged="SelectionChanged">
+									<ComboBoxItem>
+										<ComboBoxItem.Content>
+											<TextBlock Text="0,0001"></TextBlock>
+										</ComboBoxItem.Content>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<ComboBoxItem.Content>
+											<TextBlock Text="0,001"></TextBlock>
+										</ComboBoxItem.Content>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<ComboBoxItem.Content>
+											<TextBlock Text="0,003"></TextBlock>
+										</ComboBoxItem.Content>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<ComboBoxItem.Content>
+											<TextBlock Text="0,03"></TextBlock>
+										</ComboBoxItem.Content>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<ComboBoxItem.Content>
+											<TextBlock Text="0,2"></TextBlock>
+										</ComboBoxItem.Content>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<ComboBoxItem.Content>
+											<TextBlock Text="0,3"></TextBlock>
+										</ComboBoxItem.Content>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<ComboBoxItem.Content>
+											<TextBlock Text="0,01"></TextBlock>
+										</ComboBoxItem.Content>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<ComboBoxItem.Content>
+											<TextBlock Text="0,1"></TextBlock>
+										</ComboBoxItem.Content>
+									</ComboBoxItem>
+								</ComboBox>
+							</StackPanel>
+							<StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+								<TextBlock Text="Расчет n:" VerticalAlignment="Center"></TextBlock>
+								<TextBox Text="{Binding n}" MaxHeight="5" IsEnabled="False"></TextBox>
+							</StackPanel>
+							<StackPanel  Orientation="Horizontal" HorizontalAlignment="Right">
+								<TextBlock Text="Расчет P:" VerticalAlignment="Center"></TextBlock>
+								<TextBox Text="{Binding P}" MaxHeight="5" IsEnabled="False"></TextBox>
+							</StackPanel>
+						</StackPanel>
+						<!--</ScrollViewer>-->
+					</DataTemplate>
+				</TreeView.DataTemplates>
+			</TreeView>
+			<StackPanel Spacing="10" Orientation="Horizontal" HorizontalAlignment="Center">
+				<StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+					<TextBlock Text="Ввести Pк:" VerticalAlignment="Center"></TextBlock>
+					<TextBox Text="{Binding Pk}" MaxHeight="5"></TextBox>
+				</StackPanel>
+				<StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+					<TextBlock Text="Ввести Pоб:" VerticalAlignment="Center"></TextBlock>
+					<TextBox Text="{Binding Pob}" MaxHeight="5"></TextBox>
+				</StackPanel>
+				<StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+					<TextBlock Text="Ввести Pи:" VerticalAlignment="Center"></TextBlock>
+					<TextBox Text="{Binding Pi}" MaxHeight="5"></TextBox>
+				</StackPanel>
+			</StackPanel>
+			<StackPanel Spacing="10" Orientation="Horizontal" HorizontalAlignment="Center">
+				<StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+					<TextBlock Text="Расчет Pоп:" VerticalAlignment="Center"></TextBlock>
+					<TextBox Text="{Binding Pop}" MaxHeight="5" IsEnabled="False"></TextBox>
+				</StackPanel>
+				<StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+					<TextBlock Text="Расчет Pисп:" VerticalAlignment="Center"></TextBlock>
+					<TextBox Text="{Binding Pisp}" MaxHeight="5" IsEnabled="False"></TextBox>
+				</StackPanel>
+				<StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+					<TextBlock Text="Расчет Pд:" VerticalAlignment="Center"></TextBlock>
+					<TextBox Text="{Binding Pd}" MaxHeight="5" IsEnabled="False"></TextBox>
+				</StackPanel>
+			</StackPanel>
+			<StackPanel Spacing="10" Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button Content="Рассчитать" Command="{Binding CalculationCommand}"></Button>
+				<Button Content="Загрузить" Click="Download_Clicked"></Button>
+				<Button Content="Выгрузить" Click="Export_Clicked"></Button>
+			</StackPanel>
+		</StackPanel>
+	</ScrollViewer>
+
+</Window>
